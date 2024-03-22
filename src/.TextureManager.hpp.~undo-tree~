@@ -1,0 +1,7 @@
+(undo-tree-save-format-version . 1)
+"99ca93486d2ce3f0597d1be76cafac69b05aae77"
+[nil nil nil nil (26109 64892 296097 302000) 0 nil]
+([nil nil ((161 . 162) (160 . 161) (137 . 139) (#("    " 0 2 (fontified nil) 2 3 (fontified nil) 3 4 (fontified nil)) . 137) (161 . 162) (152 . 161) (139 . 152) (137 . 139) (#("    " 0 4 (fontified nil)) . 137) (137 . 141) (136 . 136) (136 . 137) (#("
+" 0 1 (fontified t)) . -136) (undo-tree-id0 . -1) (undo-tree-id1 . -1) (undo-tree-id2 . -1) (#(" " 0 1 (fontified t)) . -137) (undo-tree-id3 . -1) (undo-tree-id4 . -1) (undo-tree-id5 . -1) (#(" " 0 1 (fontified t)) . -138) (undo-tree-id6 . -1) (undo-tree-id7 . -1) (undo-tree-id8 . -1) (#("v" 0 1 (fontified t)) . -139) (undo-tree-id9 . -1) (#("o" 0 1 (fontified t)) . -140) (undo-tree-id10 . -1) 141 (139 . 141) (#("v" 0 1 (fontified t)) . -139) (undo-tree-id11 . -1) (undo-tree-id12 . -1) (undo-tree-id13 . -1) (#("o" 0 1 (fontified t)) . -140) (undo-tree-id14 . -1) (undo-tree-id15 . -1) (undo-tree-id16 . -1) (#("i" 0 1 (fontified t)) . -141) (undo-tree-id17 . -1) (undo-tree-id18 . -1) (undo-tree-id19 . -1) (#("d" 0 1 (fontified t c-type c-decl-id-start face font-lock-type-face)) . -142) (undo-tree-id20 . -1) (undo-tree-id21 . -1) (undo-tree-id22 . -1) 143 (139 . 143) (137 . 139) (137 . 138) (t 26109 64762 311812 362000)) nil (26109 64892 296091 156000) 0 nil])
+([nil current ((139 . 141) (t 26109 64892 302414 646000)) nil (26109 64893 869358 490000) 0 nil])
+nil
