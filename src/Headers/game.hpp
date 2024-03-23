@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.h"
 #include "TextureManager.hpp"
+#include "player.hpp"
 
 class Game {
 public:
@@ -12,4 +13,5 @@ public:
 
 private:
   Camera2D camera;
+  Player player;
 };
