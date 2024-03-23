@@ -2,7 +2,6 @@
 #include "./Headers/window.hpp"
 #include "./Headers/Consts.hpp"
 
-
 int main() {
     
   Display::Window window = Display::Window(

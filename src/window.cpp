@@ -1,23 +1,31 @@
 #include "./Headers/window.hpp"
 #include "./Headers/Consts.hpp"
+#include "./Headers/TextureManager.hpp"
 
 #include "raylib.h"
 #include <stdexcept>
 
-static void intro();
-static void update();
-static void end();
+TextureManager assets;
 
 Display::Window::Window(int w, int h, std::string game_title)
-  : width{w}, height{h}, title{game_title}
+  : width{w}, height{h}, title{game_title}, game{}
 {
+  // load all textures and fonts for the game
   init_window();
 }
 
 void Display::Window::init_window() {
   InitWindow(width, height, title.c_str());
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+  SetConfigFlags(FLAG_MSAA_4X_HINT); // enable anti-aliasing
   SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+
+  // -----------------------------------------------------------------------------
+  // load all assets for the game
+  // -----------------------------------------------------------------------------
+  assets.load_textures();
+  assets.load_fonts();
+  // -----------------------------------------------------------------------------
 }
 
 void Display::Window::display() {
@@ -48,43 +56,20 @@ void Display::Window::run() {
   switch (current_state) {
     case States::INTRO:
       // display the intro screen
-      intro();
+      game.draw_intro();
       if (IsKeyPressed(KEY_ENTER))
         current_state = States::GAME;
       break;
     case States::GAME:
-      update();
+      game.draw_update();
 
       if (IsKeyPressed(KEY_ENTER))
         current_state = States::END;
       break;
     case States::END:
-      end();
+      game.draw_end();
       break;
     default:
       break;
   }
 }
-
-
-void intro() {
-  ClearBackground({218, 224, 234, 255});
-  DrawCircle(
-      Consts::screen_width / 2.f,
-      Consts::screen_height / 2.f + 60,
-      150, // radius of circle
-      {179, 185, 209, 255} // color
-  );
-  DrawText("You only live", 300, 200, 50, RED);
-  DrawText("TWICE", 300, 250, 50, RED);
-}
-
-void update() {
-  ClearBackground(RAYWHITE);
-}
-
-void end() {
-  ClearBackground(RAYWHITE);
-}
-
-
