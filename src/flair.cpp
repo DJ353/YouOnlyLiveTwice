@@ -19,8 +19,10 @@ static std::vector<Flair> right_flairs;
 static std::vector<Flair> left_flairs;
 
 static std::mt19937 mersenne_twister {std::random_device{}()}; // mersenne_twister_engine seeded with random_device()
-static std::uniform_int_distribution<int> left_flair_distrib{Consts::screen_width - 200, Consts::screen_width};
-static std::uniform_int_distribution<int> right_flair_distrib{0, 200};
+static std::uniform_int_distribution<int> left_flair_x_distrib{Consts::screen_width - 200, Consts::screen_width};
+static std::uniform_int_distribution<int> left_flair_y_distrib{Consts::screen_height, Consts::screen_height + 800};
+static std::uniform_int_distribution<int> right_flair_x_distrib{0, 200};
+static std::uniform_int_distribution<int> right_flair_y_distrib{Consts::screen_height, Consts::screen_height + 800};
 
 void init_flaires() {
   for (int i = 0; i < MAX_FLAIRES; ++i) {
@@ -31,7 +33,7 @@ void init_flaires() {
     left_flair.bubbling = true;
     left_flair.color = RED;
     left_flair.position = {
-      static_cast<float>(left_flair_distrib(mersenne_twister)),
+      static_cast<float>(left_flair_x_distrib(mersenne_twister)),
       10
     };
     left_flair.radius = 5;

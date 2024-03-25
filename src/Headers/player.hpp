@@ -1,7 +1,6 @@
 #pragma once
 
 #include "raylib.h"
-#include "TextureManager.hpp"
 
 class Player {
 public:
@@ -10,10 +9,7 @@ public:
   void draw_player();
 
 private:
-  float   m_speed;
-  Vector2 m_position;
-  Vector2 m_size;
-
-  Texture2D m_texture;
-  TextureManager texture_manager;
+  float   speed;
+  Vector2 position;
+  Vector2 size;
 };

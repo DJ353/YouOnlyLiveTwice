@@ -14,6 +14,7 @@ int main() {
       "You Only Live Twice"
   );
 
+
   window.display();
 
   // cleanup
