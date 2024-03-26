@@ -5,11 +5,15 @@
 class Player {
 public:
   Player();
-  void init_player();
-  void draw_player();
+  void draw();
+  void move();
+
+  Vector2 get_position();
 
 private:
-  float   speed;
+  float speed;
+  float gravity;
+  bool mid_air;
   Vector2 position;
   Vector2 size;
 };

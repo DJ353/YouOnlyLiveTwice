@@ -14,6 +14,11 @@ Display::Window::Window(int w, int h, std::string game_title)
   init_window();
 }
 
+Display::Window::~Window() {
+  assets.unload_textures();
+  assets.unload_fonts();
+}
+
 void Display::Window::init_window() {
   InitWindow(width, height, title.c_str());
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);

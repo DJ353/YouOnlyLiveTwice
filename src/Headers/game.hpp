@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "TextureManager.hpp"
 #include "player.hpp"
+#include <vector>
 
 class Game {
 public:
@@ -14,4 +15,5 @@ public:
 private:
   Camera2D camera;
   Player player;
+  std::vector<Rectangle> map;
 };

@@ -10,6 +10,7 @@ namespace Display {
     public:
 
       Window(int w, int h, std::string title);
+      ~Window();
 
       void init_window();
       void display();

@@ -2,10 +2,6 @@
 #include "./Headers/window.hpp"
 #include "./Headers/Consts.hpp"
 
-// TODO: implement flaires in intro
-// TODO: integrate rlImGui or DearImGui for level editing
-// TODO: refactor game.cpp
-
 int main() {
     
   Display::Window window = Display::Window(
@@ -13,7 +9,6 @@ int main() {
       Consts::screen_height,
       "You Only Live Twice"
   );
-
 
   window.display();
 

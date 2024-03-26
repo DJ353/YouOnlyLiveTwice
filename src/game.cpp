@@ -10,14 +10,20 @@ extern TextureManager assets;
 Game::Game()
   : player{}
 {
-  player.init_player();
-
   init_flaires();
 
   camera.rotation = 0;
   camera.zoom = 1;
   camera.offset = {Consts::screen_width / 2.f, Consts::screen_height / 2.f};
   camera.target = {0, 0};
+
+  map = {
+    {400, 100, 100, 50},
+    {600, 200, 100, 50},
+    {200, 200, 300, 50},
+    {1200, 100, 200, 50},
+    {800, 50, 150, 50},
+  };
 }
 
 static Rectangle fire_source_rec = {0, 0, 32, 32};
@@ -50,7 +56,9 @@ void Game::draw_intro() {
     fire_source_rec.x += 32;
     ice_source_rec.x += 32;
   }
-  if (frame_counter > 20)
+  if (frame_counter >= 30)
+    DrawText("[PRESS ENTER TO PLAY]", 200, 350, 50, GRAY);
+  if (frame_counter > 60)
     frame_counter = 0;
   frame_counter++;
 
@@ -61,7 +69,18 @@ void Game::draw_intro() {
 void Game::draw_update() {
   ClearBackground(RAYWHITE);
   BeginMode2D(camera);
-  player.draw_player();
+
+  if (player.get_position().x > -16) {
+    camera.target = {player.get_position().x + 32, 0};
+  }
+  for (auto &rec : map) {
+    DrawRectangleRec(rec, RED);
+  }
+
+  player.draw();
+  player.move();
+
+
   EndMode2D();
 }
 

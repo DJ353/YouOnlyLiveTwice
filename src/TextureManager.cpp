@@ -5,6 +5,8 @@
 #include "raylib.h"
 
 
+// load all textures for the game
+
 void TextureManager::load_textures() {
   textures["heart1"] = LoadTexture("../res/Assets/heart1.png");
   textures["heart2"] = LoadTexture("../res/Assets/heart2.png");
