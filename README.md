@@ -3,7 +3,7 @@
 <p align=center>
     <img src="./res/Assets/title_screen.png">
 </p>
----
+<br />
 ## Requirements:
 The <a href="https://raylib.com/" target="_blank">Raylib</a> library has
 to be installed and added to the system $PATH.
