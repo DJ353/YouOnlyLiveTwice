@@ -3,9 +3,10 @@
 <p align=center>
     <img src="./res/Assets/title_screen.png">
 </p>
-
+---
 ## Requirements:
-[raylib]("https://www.raylib.com/") has to be installed
+The <a href="https://raylib.com/" target="_blank">Raylib</a> library has
+to be installed and added to the system $PATH.
 
 ## Quick Start
 ### Compile manually:
@@ -22,3 +23,6 @@ $ cmake ..
 $ make
 $ ./game
 ```
+---
+## LICENSE
+GNU General Public License
