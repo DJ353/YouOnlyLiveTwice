@@ -1,67 +1,92 @@
 #include "Headers/flair.hpp"
 #include "Headers/Consts.hpp"
 #include "raylib.h"
+#include "raymath.h"
+#include <cmath>
 #include <vector>
-#include <random>
 
-#define MAX_FLAIRES 100
+static constexpr size_t MAX_FLARES = 300;
 
-typedef struct Flair {
+// Flare structure
+typedef struct Flare
+{
   Vector2 position;
   Vector2 velocity;
-  float radius;
+  float   radius;
+  bool    shrinking;
+  bool fade;
+  float fade_speed;
   Color color;
-  bool bubbling; // indicates if flair is growing
-  bool active;
-} Flair;
+  Color center_color;
+} Flare;
 
-static std::vector<Flair> right_flairs;
-static std::vector<Flair> left_flairs;
+static std::vector<Flare> flares;
 
-static std::mt19937 mersenne_twister {std::random_device{}()}; // mersenne_twister_engine seeded with random_device()
-static std::uniform_int_distribution<int> left_flair_x_distrib{Consts::screen_width - 200, Consts::screen_width};
-static std::uniform_int_distribution<int> left_flair_y_distrib{Consts::screen_height, Consts::screen_height + 800};
-static std::uniform_int_distribution<int> right_flair_x_distrib{0, 200};
-static std::uniform_int_distribution<int> right_flair_y_distrib{Consts::screen_height, Consts::screen_height + 800};
+void generate_flare(Flare& flare)
+{
+    flare.radius = GetRandomValue(15, 21);
+    flare.fade = false;
+    flare.fade_speed = GetRandomValue(1, 3);
 
-void init_flaires() {
-  for (int i = 0; i < MAX_FLAIRES; ++i) {
-
-    Flair left_flair;
-
-    left_flair.active = true;
-    left_flair.bubbling = true;
-    left_flair.color = RED;
-    left_flair.position = {
-      static_cast<float>(left_flair_x_distrib(mersenne_twister)),
-      10
+    flare.position = {
+      float(GetRandomValue(flare.radius, Consts::screen_width - flare.radius)),
+      float(GetRandomValue(GetScreenHeight(), Consts::screen_height + 500))
     };
-    left_flair.radius = 5;
-    left_flair.velocity = {};
 
-    left_flairs.emplace_back(left_flair);
+    flare.velocity.x = GetRandomValue(-100, 100);
+    flare.velocity.y = -GetRandomValue(100, 500);
 
-    Flair right_flair;
-    right_flair.active = true;
-    right_flair.bubbling = true;
-    right_flair.color = BLUE;
-    right_flair.position = {};
-    right_flair.radius = 5;
-    right_flair.velocity = {};
+    // flip a coin
+    if (GetRandomValue(0, 1) % 2 == 0 ? true : false) {
+      flare.color = ColorFromHSV(GetRandomValue(30, 40), 1.0, 0.9);
+    } else {
+      flare.color = ColorFromHSV(GetRandomValue(210, 250), 1.0, 0.9);
+    }
 
-    right_flairs.emplace_back(right_flair);
-  }
+    // flare.center_color.r = std::fminf(flare.color.r * 1.25f, 255);
+    // flare.center_color.g = std::fminf(flare.color.g * 1.25f, 255);
+    // flare.center_color.b = std::fminf(flare.color.b * 1.25f, 255);
+    // flare.center_color = RED;
+
+    // flip coin to determine if flare should shrink
+    flare.shrinking = GetRandomValue(0, 1) % 2 == 0 ? true : false;
 }
 
-void draw_flaires() {
-  for (int i = 0; i < MAX_FLAIRES; ++i) {
+void init_flares()
+{
+    flares.resize(MAX_FLARES);
+    for (auto& flare : flares)
+        generate_flare(flare);
+}
 
-    if (right_flairs[i].active)
-      DrawCircleV(right_flairs[i].position, right_flairs[i].radius, right_flairs[i].color);
+void draw_flares()
+{
+    for (auto& flare : flares)
+    {
 
-    if (left_flairs[i].active)
-      DrawCircleV(left_flairs[i].position, right_flairs[i].radius, right_flairs[i].color);
+        flare.position = Vector2Add(flare.position, Vector2Scale(flare.velocity, GetFrameTime()));
 
-    // update flaires
-  }
+	// don't draw flares and shrink if not on screen
+	if (flare.position.y > Consts::screen_height) continue;
+
+	// -------------------------------------------------------------------------------------------
+	// handle fading of flares
+        if (flare.position.y < Consts::screen_height * 9 / 10.f)
+          flare.fade = true;
+
+        if (flare.fade)
+          flare.color = Fade(flare.color, 1 - flare.fade_speed / 100);
+
+	flare.fade_speed += 1;
+	// -------------------------------------------------------------------------------------------
+
+        DrawCircleV(flare.position, flare.radius, flare.color);
+        DrawCircleV(flare.position, flare.radius  / 2, flare.center_color);
+
+	if (flare.shrinking) flare.radius -= 0.05;
+        if (flare.position.y < -flare.radius
+	    || flare.position.x < flare.radius
+	    || flare.position.x > Consts::screen_width - flare.radius)
+	  generate_flare(flare);
+    }
 }

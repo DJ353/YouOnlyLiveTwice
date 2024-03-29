@@ -27,5 +27,5 @@ add_executable(game
 
 target_link_libraries(game raylib)
 target_include_directories(game PUBLIC "${raylib_SOURCE_DIR}/src")
-target_compile_options(game PRIVATE -Wall -Werror -Wextra -Wpedantic -O2)
+target_compile_options(game PRIVATE -Wall -Werror -Wextra -Wpedantic -O2 -D_GLIBCXX_DEBUG)
 

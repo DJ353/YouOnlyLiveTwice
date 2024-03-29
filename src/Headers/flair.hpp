@@ -1,4 +1,4 @@
 #pragma once
 
-void init_flaires();
-void draw_flaires();
+void init_flares();
+void draw_flares();

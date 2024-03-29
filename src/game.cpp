@@ -10,7 +10,7 @@ extern TextureManager assets;
 Game::Game()
   : player{}
 {
-  init_flaires();
+  init_flares();
 
   camera.rotation = 0;
   camera.zoom = 1;
@@ -32,7 +32,10 @@ static Rectangle ice_source_rec = {0, 0, 32, 32};
 static int frame_counter = 0;
 
 void Game::draw_intro() {
+
   ClearBackground({220, 210, 230, 255});
+
+  draw_flares();
 
   DrawTextEx(assets.get_fonts()["intro_font"], "You only live", {280, 100}, 70, 20, RED);
   DrawTextEx(assets.get_fonts()["intro_font"], "TWICE", {400, 230}, 70, 20, RED);
@@ -61,9 +64,6 @@ void Game::draw_intro() {
   if (frame_counter > 60)
     frame_counter = 0;
   frame_counter++;
-
-  // TODO: implement flaires
-  // draw_flaires();
 }
 
 void Game::draw_update() {
